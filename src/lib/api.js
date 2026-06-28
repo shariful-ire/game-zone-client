@@ -15,6 +15,12 @@ export async function apiFetch(endpoint, options = {}) {
 
   if (!res.ok) {
     const error = await res.json().catch(() => ({ message: res.statusText }));
+    if (error.errors) {
+      const fields = Object.entries(error.errors)
+        .map(([field, msgs]) => `${field}: ${Array.isArray(msgs) ? msgs.join(", ") : msgs}`)
+        .join("; ");
+      throw new Error(fields || error.message || "Something went wrong");
+    }
     throw new Error(error.message || "Something went wrong");
   }
 
@@ -87,6 +93,10 @@ export async function createFacility(data) {
     method: "POST",
     body: JSON.stringify(data),
   });
+}
+
+export async function fetchMyFacilities() {
+  return apiFetch("/facilities/mine");
 }
 
 export async function updateFacility(id, data) {

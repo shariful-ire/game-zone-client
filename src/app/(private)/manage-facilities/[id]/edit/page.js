@@ -107,9 +107,8 @@ export default function EditFacilityPage({ params }) {
       });
       toast.success("Facility updated!");
       router.push("/manage-facilities");
-    } catch {
-      toast.success("Changes saved locally — server not connected yet");
-      router.push("/manage-facilities");
+    } catch (err) {
+      toast.error(err.message || "Failed to update facility");
     } finally {
       setSaving(false);
     }

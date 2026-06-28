@@ -15,7 +15,7 @@ import PageTransition from "@/components/layout/PageTransition";
 import { Button, EmptyState, SkeletonCard } from "@/components/ui";
 import ConfirmModal from "@/components/ui/ConfirmModal";
 import { useAuth } from "@/lib/AuthProvider";
-import { fetchFacilities, deleteFacility } from "@/lib/api";
+import { fetchMyFacilities, deleteFacility } from "@/lib/api";
 
 export default function ManageFacilitiesPage() {
   const { user } = useAuth();
@@ -28,11 +28,8 @@ export default function ManageFacilitiesPage() {
     async function load() {
       setLoading(true);
       try {
-        const data = await fetchFacilities({});
-        const arr = Array.isArray(data) ? data : data.facilities || [];
-        setFacilities(
-          arr.filter((f) => f.owner_email === user?.email)
-        );
+        const data = await fetchMyFacilities();
+        setFacilities(Array.isArray(data) ? data : []);
       } catch {
         setFacilities([]);
       } finally {

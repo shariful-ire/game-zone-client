@@ -79,9 +79,8 @@ export default function AddFacilityPage() {
       });
       toast.success("Facility added successfully!");
       router.push("/manage-facilities");
-    } catch {
-      toast.success("Facility saved locally — server not connected yet");
-      router.push("/manage-facilities");
+    } catch (err) {
+      toast.error(err.message || "Failed to add facility");
     } finally {
       setLoading(false);
     }
