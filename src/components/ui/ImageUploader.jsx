@@ -73,7 +73,7 @@ export default function ImageUploader({ value, onChange }) {
           onClick={() => fileRef.current?.click()}
           onDrop={handleDrop}
           onDragOver={(e) => e.preventDefault()}
-          className="w-full h-40 rounded-2xl border-2 border-dashed border-base-content/15 hover:border-primary/40 bg-base-200 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors"
+          className="w-full h-40 rounded-2xl border-2 border-dashed border-base-content/15 hover:border-primary/40 bg-base-100 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors"
         >
           {uploading ? (
             <>

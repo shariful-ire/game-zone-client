@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { RiCloseLine } from "react-icons/ri";
+import { RiCloseLine, RiAddCircleLine } from "react-icons/ri";
 import PageTransition from "@/components/layout/PageTransition";
 import { Button, FormField } from "@/components/ui";
 import ImageUploader from "@/components/ui/ImageUploader";
@@ -86,27 +86,26 @@ export default function AddFacilityPage() {
     }
   }
 
-  const charCount = form.description.length;
-
   return (
     <PageTransition className="flex-1">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
+        {/* Page Header */}
         <div className="mb-8">
-          <h1>Add Facility</h1>
-          <p className="text-base-content/50 mt-2">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Add Facility</h2>
+          <p className="text-sm text-base-content/50 mt-1.5">
             List your sports facility and start getting bookings
           </p>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="bg-base-200 rounded-2xl border border-base-content/5 p-5 md:p-8 space-y-8"
+          className="bg-base-200 rounded-2xl border border-base-content/10 p-6 md:p-8 space-y-7 shadow-lg shadow-black/20"
         >
           {/* Basic Info */}
-          <div className="space-y-4">
-            <h3 className="text-base-content/70 border-b border-base-content/5 pb-2">
+          <section className="space-y-4">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-primary/70 border-b border-base-content/10 pb-2">
               Basic Info
-            </h3>
+            </h4>
             <FormField
               label="Facility Name"
               name="name"
@@ -120,7 +119,7 @@ export default function AddFacilityPage() {
                 name="facility_type"
                 value={form.facility_type}
                 onChange={(e) => update("facility_type", e.target.value)}
-                className="w-full select rounded-2xl bg-base-300"
+                className="w-full select rounded-xl bg-base-100 border border-base-content/15"
               >
                 <option value="" disabled>
                   Select sport type
@@ -140,13 +139,13 @@ export default function AddFacilityPage() {
               onChange={(e) => update("location", e.target.value)}
               error={errors.location}
             />
-          </div>
+          </section>
 
           {/* Pricing & Capacity */}
-          <div className="space-y-4">
-            <h3 className="text-base-content/70 border-b border-base-content/5 pb-2">
+          <section className="space-y-4">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-primary/70 border-b border-base-content/10 pb-2">
               Pricing & Capacity
-            </h3>
+            </h4>
             <div className="grid grid-cols-2 gap-4">
               <FormField
                 label="Price Per Hour (৳)"
@@ -167,27 +166,28 @@ export default function AddFacilityPage() {
                 error={errors.capacity}
               />
             </div>
-          </div>
+          </section>
 
           {/* Availability */}
-          <div className="space-y-4">
-            <h3 className="text-base-content/70 border-b border-base-content/5 pb-2">
+          <section className="space-y-4">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-primary/70 border-b border-base-content/10 pb-2">
               Availability
-            </h3>
+            </h4>
             <div className="space-y-2">
-              <label className="text-sm font-medium text-base-content">
+              <label className="text-sm font-medium text-base-content/80">
                 Available Time Slots
               </label>
               <div className="flex gap-2">
                 <input
                   type="text"
-                  placeholder='e.g. 6:00-7:00 PM'
+                  placeholder="e.g. 6:00-7:00 PM"
                   value={slotInput}
                   onChange={(e) => setSlotInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addSlot())}
-                  className="flex-1 input rounded-2xl bg-base-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  className="flex-1 input rounded-xl bg-base-100 border border-base-content/15 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-colors"
                 />
                 <Button variant="primary" size="sm" type="button" onClick={addSlot}>
+                  <RiAddCircleLine className="text-base" />
                   Add
                 </Button>
               </div>
@@ -196,10 +196,10 @@ export default function AddFacilityPage() {
                   {form.available_slots.map((slot) => (
                     <span
                       key={slot}
-                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-sm font-medium border border-primary/20"
                     >
                       {slot}
-                      <button type="button" onClick={() => removeSlot(slot)}>
+                      <button type="button" onClick={() => removeSlot(slot)} className="hover:text-error transition-colors">
                         <RiCloseLine className="text-sm" />
                       </button>
                     </span>
@@ -207,7 +207,7 @@ export default function AddFacilityPage() {
                 </div>
               )}
               {errors.available_slots && (
-                <p className="text-sm text-error">{errors.available_slots}</p>
+                <p className="text-xs text-error mt-0.5">{errors.available_slots}</p>
               )}
             </div>
 
@@ -221,40 +221,40 @@ export default function AddFacilityPage() {
               onChange={(e) => update("description", e.target.value)}
               error={errors.description}
             />
-            <p className="text-xs text-base-content/30 text-right">
-              {charCount} characters
+            <p className="text-xs text-base-content/30 text-right -mt-2">
+              {form.description.length} characters
             </p>
-          </div>
+          </section>
 
           {/* Media */}
-          <div className="space-y-4">
-            <h3 className="text-base-content/70 border-b border-base-content/5 pb-2">
+          <section className="space-y-3">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-primary/70 border-b border-base-content/10 pb-2">
               Media
-            </h3>
-            <label className="text-sm font-medium text-base-content">
+            </h4>
+            <label className="text-sm font-medium text-base-content/80">
               Facility Image
             </label>
             <ImageUploader
               value={form.image_url}
               onChange={(url) => update("image_url", url)}
             />
-          </div>
+          </section>
 
-          {/* Owner email (auto-filled) */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-base-content">
+          {/* Owner email */}
+          <section className="space-y-2">
+            <label className="text-sm font-medium text-base-content/80">
               Owner Email
             </label>
             <input
               type="email"
               value={user?.email || ""}
               readOnly
-              className="w-full input rounded-2xl bg-base-300/50 text-base-content/50 cursor-not-allowed"
+              className="w-full input rounded-xl bg-base-100/50 border border-base-content/10 text-base-content/40 cursor-not-allowed"
             />
             <p className="text-xs text-base-content/30">
               Auto-filled from your account
             </p>
-          </div>
+          </section>
 
           <Button
             variant="accent"

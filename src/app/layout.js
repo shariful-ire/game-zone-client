@@ -23,6 +23,7 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-numeric",
   display: "swap",
+  preload: false,
   weight: ["400", "500", "700"],
 });
 
