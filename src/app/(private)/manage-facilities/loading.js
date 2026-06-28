@@ -1,0 +1,20 @@
+import { SkeletonCard } from "@/components/ui";
+
+export default function ManageFacilitiesLoading() {
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
+      <div className="flex items-center justify-between mb-8">
+        <div className="space-y-3 animate-pulse">
+          <div className="h-8 w-52 bg-base-200 rounded-full" />
+          <div className="h-4 w-72 bg-base-200 rounded-full" />
+        </div>
+        <div className="h-9 w-24 bg-base-200 rounded-2xl animate-pulse" />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <SkeletonCard key={i} />
+        ))}
+      </div>
+    </div>
+  );
+}

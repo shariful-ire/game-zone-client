@@ -12,6 +12,7 @@ import {
   RiLogoutBoxRLine,
 } from "react-icons/ri";
 import Button from "@/components/ui/Button";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import { useAuth } from "@/lib/AuthProvider";
 import { signOut } from "@/lib/auth-client";
 
@@ -336,7 +337,9 @@ export default function Navbar() {
           </div>
 
           {/* Right Side */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+
             {/* Desktop auth area */}
             <div className="hidden md:block">
               {user ? (

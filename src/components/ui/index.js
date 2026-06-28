@@ -11,3 +11,4 @@ export { default as ImageGallery } from "./ImageGallery";
 export { default as BookingPanel } from "./BookingPanel";
 export { default as ConfirmModal } from "./ConfirmModal";
 export { default as ImageUploader } from "./ImageUploader";
+export { default as ThemeToggle } from "./ThemeToggle";
